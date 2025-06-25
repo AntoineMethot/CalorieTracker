@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <title>Ingredient Directory</title>
+</head>
+<body>
+
+<div class="container">
+
+    <h3>Ingredient Directory</h3>
+    <hr>
+
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Calories</th>
+            <th>Protein</th>
+            <th>Carbs</th>
+            <th>Fat</th>
+
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="ingredient : ${ingredients}">
+
+            <td th:text="${ingredient.name}" />
+            <td th:text="${ingredient.portionDescription}" />
+            <td th:text="${ingredient.caloriesPerPortion}" />
+            <td th:text="${ingredient.proteinPerPortion}" />
+            <td th:text="${ingredient.carbsPerPortion}" />
+            <td th:text="${ingredient.fatPerPortion}" />
+
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
