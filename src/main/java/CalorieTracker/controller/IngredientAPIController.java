@@ -18,11 +18,6 @@ public class IngredientAPIController {
         this.ingredientService = ingredientService;
     }
 
-    @GetMapping("/")
-    public String home() {
-        return "Welcome to the Calorie Tracker API";
-    }
-
     @GetMapping("/ingredients")
     public List<Ingredient> findAllIngredients() {
         return ingredientService.findAll();
