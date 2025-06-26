@@ -16,7 +16,7 @@
     </span>
     <hr>
 
-    <a th:href="@{/ingredients/showAddIngredientForm}"
+    <a th:href="@{/ingredients/addIngredient}"
        class="btn btn-primary btn-sm mb-3">
         Add Ingredient
     </a>
@@ -30,6 +30,7 @@
             <th>Protein</th>
             <th>Carbs</th>
             <th>Fat</th>
+            <th>Actions</th>
 
         </tr>
         </thead>
@@ -43,6 +44,17 @@
             <td th:text="${ingredient.proteinPerPortion}" />
             <td th:text="${ingredient.carbsPerPortion}" />
             <td th:text="${ingredient.fatPerPortion}" />
+            <td>
+                <a th:href="@{/ingredients/editIngredient/{id}(id=${ingredient.id})}"
+                   class="btn btn-info btn-sm">
+                    Edit
+                </a>
+                <a th:href="@{/ingredients/deleteIngredient/{id}(id=${ingredient.id})}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this ingredient?');">
+                    Delete
+                </a>
+            </td>
 
         </tr>
         </tbody>

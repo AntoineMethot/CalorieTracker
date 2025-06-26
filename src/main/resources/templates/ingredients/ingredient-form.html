@@ -17,6 +17,7 @@
         <form action="#" th:action="@{/ingredients/save}"
                          th:object="${ingredient}" method="POST">
 
+            <input type="hidden" th:field="*{id}" class="form-control mb-4 w-25" placeholder="Id"/>
             <input type="text" th:field="*{name}" class="form-control mb-4 w-25" placeholder="Name"/>
             <input type="text" th:field="*{portionDescription}" class="form-control mb-4 w-25" placeholder="Description (ex: 1/2 Cup (45g)"/>
             <input type="text" th:field="*{gramsPerPortion}" class="form-control mb-4 w-25" placeholder="Grams per Portion"/>

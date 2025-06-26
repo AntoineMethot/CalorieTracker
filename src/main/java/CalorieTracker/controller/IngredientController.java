@@ -5,10 +5,7 @@ import CalorieTracker.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -30,11 +27,24 @@ public class IngredientController {
         return "ingredients/list-ingredients"; // Thymeleaf template path
     }
 
-    @GetMapping("/showAddIngredientForm")
-    public String showAddIngredientForm(Model model) {
+    @GetMapping("/addIngredient")
+    public String addIngredient(Model model) {
         Ingredient ingredient = new Ingredient(); // Create a new ingredient object
         model.addAttribute("ingredient", ingredient);
         return "ingredients/ingredient-form"; // Thymeleaf template path for the form
+    }
+
+    @GetMapping("/editIngredient/{id}")
+    public String editIngredient(@PathVariable Long id, Model model) {
+        Ingredient ingredient = ingredientService.findById(id);
+        model.addAttribute("ingredient", ingredient);
+        return "ingredients/ingredient-form"; // Thymeleaf template path for the form
+    }
+
+    @GetMapping("/deleteIngredient/{id}")
+    public String deleteIngredient(@PathVariable Long id) {
+        ingredientService.deleteById(id);
+        return "redirect:/ingredients/list"; // Redirect to the list after deletion
     }
 
     @PostMapping("/save")
