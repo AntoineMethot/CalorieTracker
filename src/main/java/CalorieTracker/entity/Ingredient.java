@@ -16,7 +16,7 @@ public class Ingredient {
     // No need for @Column as JPA automatically maps camelCase to snake_case
     // Columns are already NOT NULL so no need for @Column(nullable = false)
     private String portionDescription;
-    private Double gramsPerPortion;
+    private Double quantityPerPortion;
     private Double caloriesPerPortion;
     private Double proteinPerPortion;
     private Double carbsPerPortion;
@@ -46,12 +46,12 @@ public class Ingredient {
         this.portionDescription = portionDescription;
     }
 
-    public Double getGramsPerPortion() {
-        return gramsPerPortion;
+    public Double getQuantityPerPortion() {
+        return quantityPerPortion;
     }
 
-    public void setGramsPerPortion(Double gramsPerPortion) {
-        this.gramsPerPortion = gramsPerPortion;
+    public void setQuantityPerPortion(Double quantityPerPortion) {
+        this.quantityPerPortion = quantityPerPortion;
     }
 
     public Double getCaloriesPerPortion() {
@@ -92,7 +92,7 @@ public class Ingredient {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", portionDescription='" + portionDescription + '\'' +
-                ", gramsPerPortion=" + gramsPerPortion +
+                ", quantityPerPortion=" + quantityPerPortion +
                 ", caloriesPerPortion=" + caloriesPerPortion +
                 ", proteinPerPortion=" + proteinPerPortion +
                 ", carbsPerPortion=" + carbsPerPortion +

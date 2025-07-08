@@ -34,10 +34,8 @@
 
         </tr>
         </thead>
-
         <tbody>
         <tr th:each="ingredient : ${ingredients}">
-
             <td th:text="${ingredient.name}" />
             <td th:text="${ingredient.portionDescription}" />
             <td th:text="${ingredient.caloriesPerPortion}" />
@@ -55,7 +53,6 @@
                     Delete
                 </a>
             </td>
-
         </tr>
         </tbody>
     </table>
