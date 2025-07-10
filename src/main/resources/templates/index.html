@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,6 +32,10 @@
     <a th:href="@{/ingredients/list}" class="btn btn-primary btn-lg w-100">Ingredients</a>
     <a th:href="@{/meals/list}" class="btn btn-primary btn-lg w-100 mt-3">Meals</a>
     <a th:href="@{/entries/list}" class="btn btn-primary btn-lg w-100 mt-3">Entries</a>
+
+    <div sec:authorize="hasRole('ADMIN')">
+        <a th:href="@{/admin/dashboard}" class="btn btn-secondary btn-lg w-100 mt-3">Admin Dashboard</a>
+    </div>
 </div>
 </body>
 </html>
