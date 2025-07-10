@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>User Directory</title>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="d-flex justify-content-between pt-3">
+    <h3 class="mb-0">User Directory</h3>
+
+    <form th:action="@{/logout}" method="POST">
+      <input type="submit" value="Logout" class="btn btn-danger" />
+    </form>
+  </div>
+  <hr>
+
+  <a th:href="@{/ingredients/addIngredient}"
+     class="btn btn-primary btn-sm mb-3">
+    Add Ingredient
+  </a>
+
+  <table class="table table-bordered table-striped">
+    <thead class="table-dark">
+    <tr>
+      <th>username</th>
+      <th>enabled</th>
+      <th>roles</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${users}">
+      <td th:text="${ingredient.name}" />
+      <td th:text="${ingredient.portionDescription}" />
+      <td th:text="${ingredient.caloriesPerPortion}" />
+      <td th:text="${ingredient.proteinPerPortion}" />
+      <td th:text="${ingredient.carbsPerPortion}" />
+      <td th:text="${ingredient.fatPerPortion}" />
+      <td>
+        <a th:href="@{/ingredients/editIngredient/{id}(id=${ingredient.id})}"
+           class="btn btn-info btn-sm">
+          Edit
+        </a>
+        <a th:href="@{/ingredients/deleteIngredient/{id}(id=${ingredient.id})}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Are you sure you want to delete this ingredient?');">
+          Delete
+        </a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <div th:if="${#lists.isEmpty(ingredients)}" class="alert alert-warning">
+    No ingredients found. Please add some ingredients.
+  </div>
+  <hr>
+  <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
+</div>
+
+</body>
+</html>
