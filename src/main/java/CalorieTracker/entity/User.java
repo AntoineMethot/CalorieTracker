@@ -2,6 +2,9 @@ package CalorieTracker.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users", schema = "calorietracker")
 public class User {
@@ -18,6 +21,17 @@ public class User {
 
     @Column(name = "enabled", nullable = false)
     private Boolean enabled = false;
+
+    @Transient
+    private List<String> roles = new ArrayList<>();
+
+    public List<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<String> roles) {
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

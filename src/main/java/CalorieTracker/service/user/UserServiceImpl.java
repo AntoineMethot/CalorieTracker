@@ -3,6 +3,7 @@ package CalorieTracker.service.user;
 import CalorieTracker.dao.UserRepository;
 import CalorieTracker.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -12,17 +13,30 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JdbcTemplate jdbcTemplate;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, JdbcTemplate jdbcTemplate) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
     public List<User> findAll() {
-        // Logic to find all users
-        return userRepository.findAll(); // Replace with actual implementation
+        List<User> users = userRepository.findAll();
+
+        // For each user, fetch their roles
+        for (User user : users) {
+            List<String> roles = jdbcTemplate.queryForList(
+                    "SELECT authority FROM authorities WHERE username = ?",
+                    String.class,
+                    user.getUsername()
+            );
+            user.setRoles(roles);
+        }
+
+        return users;
     }
 
     @Override
