@@ -11,9 +11,13 @@
 
 <div class="container">
 
-    <span>
-        <h3>Ingredient Directory</h3>
-    </span>
+    <div class="d-flex justify-content-between pt-3">
+        <h3 class="mb-0">Ingredient Directory</h3>
+
+        <form th:action="@{/logout}" method="POST">
+            <input type="submit" value="Logout" class="btn btn-danger" />
+        </form>
+    </div>
     <hr>
 
     <a th:href="@{/ingredients/addIngredient}"
