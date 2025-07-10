@@ -3,6 +3,8 @@ package CalorieTracker.controller;
 import CalorieTracker.entity.Ingredient;
 import CalorieTracker.service.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,11 @@ public class IngredientController {
 
     @PostMapping("/save")
     public String saveIngredient(@ModelAttribute("ingredient") Ingredient ingredient) {
+        // Get the current authenticated user's username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        // Set the username on the ingredient
+        ingredient.setUsername(currentUsername);
         ingredientService.save(ingredient);
         return "redirect:/ingredients/list"; // Redirect to the list after saving
     }

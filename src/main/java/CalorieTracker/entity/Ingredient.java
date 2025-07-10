@@ -22,6 +22,28 @@ public class Ingredient {
     private Double carbsPerPortion;
     private Double fatPerPortion;
 
+    @Column(name = "image_url", length = 2048)
+    private String imageUrl;
+
+    @Column(name = "username", nullable = false)
+    private String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public Long getId() {
         return id;
     }
@@ -97,6 +119,8 @@ public class Ingredient {
                 ", proteinPerPortion=" + proteinPerPortion +
                 ", carbsPerPortion=" + carbsPerPortion +
                 ", fatPerPortion=" + fatPerPortion +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", username='" + username + '\'' +
                 '}';
     }
 }
