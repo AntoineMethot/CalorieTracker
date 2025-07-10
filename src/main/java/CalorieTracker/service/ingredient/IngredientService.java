@@ -1,4 +1,4 @@
-package CalorieTracker.service;
+package CalorieTracker.service.ingredient;
 
 import CalorieTracker.entity.Ingredient;
 

@@ -1,7 +1,7 @@
 package CalorieTracker.controller;
 
 import CalorieTracker.entity.Ingredient;
-import CalorieTracker.service.IngredientService;
+import CalorieTracker.service.ingredient.IngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
