@@ -60,7 +60,11 @@
         </tr>
         </tbody>
     </table>
-
+    <div th:if="${#lists.isEmpty(ingredients)}" class="alert alert-warning">
+        No ingredients found. Please add some ingredients.
+    </div>
+    <hr>
+    <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
 </div>
 
 </body>

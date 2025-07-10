@@ -8,11 +8,11 @@ public class SecurityController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "security/login";
     }
 
     @GetMapping("/access-denied")
     public String accessDenied() {
-        return "access-denied";
+        return "security/access-denied";
     }
 }
