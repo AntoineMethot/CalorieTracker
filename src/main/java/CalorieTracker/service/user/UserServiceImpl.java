@@ -52,12 +52,30 @@ public class UserServiceImpl implements UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
+        user.setEnabled(true); // or whatever logic you want
+        userRepository.save(user);
+
+        // Delete existing roles (in case of update)
+        jdbcTemplate.update("DELETE FROM authorities WHERE username = ?", user.getUsername());
+
+        // Insert new roles
+        for (String role : user.getRoles()) {
+            jdbcTemplate.update("INSERT INTO authorities (username, authority) VALUES (?, ?)",
+                    user.getUsername(), role);
+        }
+
         userRepository.save(user);
     }
 
     @Override
     public void deleteByUsername(String username) {
-        User user = findByUsername(username); // reuses existing method
+        // Delete authorities first (to avoid FK constraint errors)
+        jdbcTemplate.update("DELETE FROM authorities WHERE username = ?", username);
+
+        // Then delete user
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found with username: " + username));
+
         userRepository.delete(user);
     }
 }
