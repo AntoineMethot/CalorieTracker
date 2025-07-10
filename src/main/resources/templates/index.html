@@ -17,6 +17,32 @@
         </form>
     </div>
     <hr>
+
+    <table class="table table-bordered table-striped">
+        <tbody>
+        <tr>
+            <td>
+                <h4>Welcome to the Calorie Tracker Application!</h4>
+                <p>This application allows you to track your daily calorie intake by managing ingredients, meals and their nutritional values.</p>
+                <p>Use the navigation links to add, edit, or delete ingredients, and view your ingredient list.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a th:href="@{/ingredients/list}" class="fs-4 fw-bold text-primary text-decoration-none">Ingredients</a>
+            </td>
+        <tr>
+            <td>
+                <a th:href="@{/meals/list}" class="fs-4 fw-bold text-primary text-decoration-none">Meals</a>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <a th:href="@{/entries/list}" class="fs-4 fw-bold text-primary text-decoration-none">Entries</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>
