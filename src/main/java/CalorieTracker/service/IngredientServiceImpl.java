@@ -39,4 +39,9 @@ public class IngredientServiceImpl implements IngredientService {
         }
         ingredientRepository.deleteById(id);
     }
+
+    @Override
+    public List<Ingredient> findByUsername(String username) {
+        return ingredientRepository.findByUsername(username);
+    }
 }

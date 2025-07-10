@@ -24,7 +24,13 @@ public class IngredientController {
 
     @GetMapping("/list")
     public String listIngredients(Model model) {
-        List<Ingredient> ingredients = ingredientService.findAll();
+        // Get the current authenticated user's username
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+
+        //Find list of ingredients for the current user
+        List<Ingredient> ingredients = ingredientService.findByUsername(currentUsername);
+
         model.addAttribute("ingredients", ingredients);
         return "ingredients/list-ingredients"; // Thymeleaf template path
     }

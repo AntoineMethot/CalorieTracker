@@ -9,4 +9,5 @@ public interface IngredientService {
     Ingredient findById(Long id);
     Ingredient save(Ingredient ingredient);
     void deleteById(Long id);
+    List<Ingredient> findByUsername(String username); // Added method to find ingredients by username
 }
