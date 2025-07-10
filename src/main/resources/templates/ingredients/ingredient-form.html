@@ -9,10 +9,15 @@
 
 <body>
     <div class="container">
-        <h3>Ingredient Directory</h3>
-        <hr>
+        <div class="d-flex justify-content-between pt-3">
+            <h3 class="mb-0">Save ingredient</h3>
 
-        <p class="h4 mb-4">Save Ingredient</p>
+            <form th:action="@{/logout}" method="POST">
+                <input type="submit" value="Logout" class="btn btn-danger" />
+            </form>
+        </div>
+
+        <hr>
 
         <form action="#" th:action="@{/ingredients/save}"
                          th:object="${ingredient}" method="POST">
@@ -27,12 +32,10 @@
             <input type="number" th:field="*{fatPerPortion}" class="form-control mb-4 w-25" placeholder="Fat"/>
 
             <button type="submit" class="btn btn-info col-3">Save</button>
-
-
         </form>
 
         <hr>
-        <a th:href="@{/ingredients/list}">Back to List</a>
+        <a th:href="@{/ingredients/list}" class="btn btn-secondary">Back to List</a>
 
     </div>
 </body>
