@@ -34,6 +34,7 @@ public class SecurityConfig {
                         configurer
                                 .requestMatchers("/api/**").hasRole("ADMIN")
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
+                                .requestMatchers("/users/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 )
                 // Custom login page and processing URL

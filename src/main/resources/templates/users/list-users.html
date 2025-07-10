@@ -20,44 +20,40 @@
   </div>
   <hr>
 
-  <a th:href="@{/ingredients/addIngredient}"
+  <a th:href="@{/users/addUser}"
      class="btn btn-primary btn-sm mb-3">
-    Add Ingredient
+    Add User
   </a>
 
   <table class="table table-bordered table-striped">
     <thead class="table-dark">
     <tr>
-      <th>username</th>
-      <th>enabled</th>
-      <th>roles</th>
+      <th>User</th>
+      <th>Enabled</th>
+      <th>Roles</th>
 
     </tr>
     </thead>
     <tbody>
     <tr th:each="user : ${users}">
-      <td th:text="${ingredient.name}" />
-      <td th:text="${ingredient.portionDescription}" />
-      <td th:text="${ingredient.caloriesPerPortion}" />
-      <td th:text="${ingredient.proteinPerPortion}" />
-      <td th:text="${ingredient.carbsPerPortion}" />
-      <td th:text="${ingredient.fatPerPortion}" />
+      <td th:text="${user.username}" />
+      <td th:text="${user.enabled}" />
       <td>
-        <a th:href="@{/ingredients/editIngredient/{id}(id=${ingredient.id})}"
+        <a th:href="@{/users/editUser/{id}(id=${user.id})}"
            class="btn btn-info btn-sm">
           Edit
         </a>
-        <a th:href="@{/ingredients/deleteIngredient/{id}(id=${ingredient.id})}"
+        <a th:href="@{/users/deleteUser/{id}(id=${user.id})}"
            class="btn btn-danger btn-sm"
-           onclick="return confirm('Are you sure you want to delete this ingredient?');">
+           onclick="return confirm('Are you sure you want to delete this user?');">
           Delete
         </a>
       </td>
     </tr>
     </tbody>
   </table>
-  <div th:if="${#lists.isEmpty(ingredients)}" class="alert alert-warning">
-    No ingredients found. Please add some ingredients.
+  <div th:if="${#lists.isEmpty(users)}" class="alert alert-warning">
+    No Users found. Please add some Users.
   </div>
   <hr>
   <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
