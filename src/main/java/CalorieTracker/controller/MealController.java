@@ -1,6 +1,9 @@
 package CalorieTracker.controller;
 
+import CalorieTracker.dto.MealForm;
 import CalorieTracker.entity.Meal;
+import CalorieTracker.entity.MealIngredient;
+import CalorieTracker.service.ingredient.IngredientService;
 import CalorieTracker.service.meal.MealService;
 import CalorieTracker.service.mealingredient.MealIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +24,14 @@ public class MealController {
 
     private final MealService mealService;
     private final MealIngredientService mealIngredientService;
+    private final IngredientService ingredientService;
 
     @Autowired
     public MealController(MealService mealService,
-                          MealIngredientService mealIngredientService) {
+                          MealIngredientService mealIngredientService, IngredientService ingredientService) {
         this.mealService = mealService;
         this.mealIngredientService = mealIngredientService;
+        this.ingredientService = ingredientService;
     }
 
     @GetMapping("/list")
@@ -44,17 +49,32 @@ public class MealController {
     }
 
     @GetMapping("/addMeal")
-    public String addMeal(Model model) {
-        Meal meal = new Meal(); // Create a new ingredient object
-        model.addAttribute("meal", meal);
-        return "meals/meals-form"; // Thymeleaf template path for the form
+    public String showMealForm(Model model) {
+        MealForm mealForm = new MealForm();
+
+        // Add one blank ingredient by default
+        mealForm.getMealIngredients().add(new MealIngredient());
+
+        model.addAttribute("mealForm", mealForm);
+        model.addAttribute("allIngredients", ingredientService.findAll());
+        return "meals/meal-form";  // match the name above
     }
+
     @PostMapping("/save")
-    public String saveMeal(@ModelAttribute("meal") Meal meal) {
+    public String saveMeal(@ModelAttribute MealForm mealForm) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
-        meal.setUsername(currentUsername); // assign current user
-        mealService.save(meal);
+
+        Meal meal = mealForm.getMeal();
+        meal.setUsername(currentUsername);
+
+        Meal savedMeal = mealService.save(meal);
+
+        for (MealIngredient mi : mealForm.getMealIngredients()) {
+            mi.setMeal(savedMeal);
+            mealIngredientService.save(mi);
+        }
+
         return "redirect:/meals/list";
     }
 
