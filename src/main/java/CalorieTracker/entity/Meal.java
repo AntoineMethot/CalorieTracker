@@ -2,6 +2,8 @@ package CalorieTracker.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "meal", schema = "calorietracker")
 public class Meal {
@@ -18,6 +20,17 @@ public class Meal {
 
     @Column(name = "image_url", length = 2048)
     private String imageUrl;
+
+    @OneToMany(mappedBy = "meal")
+    private List<MealIngredient> mealIngredients;
+
+    public List<MealIngredient> getMealIngredients() {
+        return mealIngredients;
+    }
+
+    public void setMealIngredients(List<MealIngredient> mealIngredients) {
+        this.mealIngredients = mealIngredients;
+    }
 
     public Long getId() {
         return id;
