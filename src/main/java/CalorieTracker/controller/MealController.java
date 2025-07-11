@@ -1,6 +1,5 @@
 package CalorieTracker.controller;
 
-import CalorieTracker.entity.Ingredient;
 import CalorieTracker.entity.Meal;
 import CalorieTracker.service.meal.MealService;
 import CalorieTracker.service.mealingredient.MealIngredientService;
@@ -10,6 +9,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -48,5 +49,14 @@ public class MealController {
         model.addAttribute("meal", meal);
         return "meals/meals-form"; // Thymeleaf template path for the form
     }
+    @PostMapping("/save")
+    public String saveMeal(@ModelAttribute("meal") Meal meal) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        meal.setUsername(currentUsername); // assign current user
+        mealService.save(meal);
+        return "redirect:/meals/list";
+    }
+
 
 }
