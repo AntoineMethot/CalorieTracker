@@ -71,6 +71,9 @@ public class MealController {
         Meal savedMeal = mealService.save(meal);
 
         for (MealIngredient mi : mealForm.getMealIngredients()) {
+            // Re-fetch the actual Ingredient entity using the ID
+            Long ingredientId = mi.getIngredient().getId();
+            mi.setIngredient(ingredientService.findById(ingredientId));
             mi.setMeal(savedMeal);
             mealIngredientService.save(mi);
         }
