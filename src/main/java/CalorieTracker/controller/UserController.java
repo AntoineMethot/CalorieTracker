@@ -48,4 +48,11 @@ public class UserController {
         userService.save(user);
         return "redirect:/users/list"; // Redirect to the list after saving
     }
+
+    @GetMapping("/editUser/{username}")
+    public String editUser(@PathVariable String username, Model model) {
+        User user = userService.findByUsername(username);
+        model.addAttribute("user", user);
+        return "users/user-form"; // Thymeleaf template path for the form
+    }
 }
