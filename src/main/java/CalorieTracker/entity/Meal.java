@@ -21,7 +21,7 @@ public class Meal {
     @Column(name = "image_url", length = 2048)
     private String imageUrl;
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealIngredient> mealIngredients;
 
     public List<MealIngredient> getMealIngredients() {
