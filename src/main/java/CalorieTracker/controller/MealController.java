@@ -1,6 +1,7 @@
 package CalorieTracker.controller;
 
 import CalorieTracker.dto.MealForm;
+import CalorieTracker.entity.Ingredient;
 import CalorieTracker.entity.Meal;
 import CalorieTracker.entity.MealIngredient;
 import CalorieTracker.service.ingredient.IngredientService;
@@ -63,23 +64,44 @@ public class MealController {
         String currentUsername = authentication.getName();
 
         Meal meal = mealForm.getMeal();
-        meal.setUsername(currentUsername);
+        meal.setUsername(currentUsername); // preserve owner
 
         Meal savedMeal = mealService.save(meal);
 
+        // Clean up old MealIngredients and replace with updated ones
+        List<MealIngredient> existing = mealIngredientService.findByMeal(savedMeal);
+        for (MealIngredient mi : existing) {
+            mealIngredientService.deleteById(mi.getId());
+        }
+
         for (MealIngredient mi : mealForm.getMealIngredients()) {
-            // Re-fetch the actual Ingredient entity using the ID
-            Long ingredientId = mi.getIngredient().getId();
-            mi.setIngredient(ingredientService.findById(ingredientId));
             mi.setMeal(savedMeal);
             mealIngredientService.save(mi);
         }
+
         return "redirect:/meals/list";
     }
+
 
     @GetMapping("/deleteMeal/{id}")
     public String deleteMeal(@PathVariable Long id) {
         mealService.deleteById(id);
         return "redirect:/meals/list"; // Redirect to the list after deletion
+    }
+
+    @GetMapping("/editMeal/{id}")
+    public String showEditMealForm(@PathVariable Long id, Model model) {
+        Meal meal = mealService.findById(id);
+        MealForm mealForm = new MealForm();
+        mealForm.setMeal(meal);
+
+        // Load existing MealIngredient entries for this meal
+        List<MealIngredient> mealIngredients = mealIngredientService.findByMeal(meal);
+        mealForm.setMealIngredients(mealIngredients);
+
+        model.addAttribute("mealForm", mealForm);
+        model.addAttribute("allIngredients", ingredientService.findAll());
+
+        return "meals/meal-form"; // reuse the same form view
     }
 }

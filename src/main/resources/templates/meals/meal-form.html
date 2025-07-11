@@ -13,6 +13,7 @@
     <hr>
 
     <form th:action="@{/meals/save}" th:object="${mealForm}" method="post">
+        <input type="hidden" th:field="*{meal.id}" class="form-control mb-4 w-25" placeholder="Id"/>
 
         <!-- Meal name -->
         <div class="mb-3">
@@ -26,10 +27,11 @@
         <div id="ingredient-container">
             <div class="row mb-3" th:each="mi, iterStat : *{mealIngredients}">
                 <div class="col-md-6">
-                    <select th:name="mealIngredients[__${iterStat.index}__].ingredient.id" class="form-select" required>
+                    <select th:field="*{mealIngredients[__${iterStat.index}__].ingredient}" class="form-select" required>
                         <option th:each="ingredient : ${allIngredients}"
                                 th:value="${ingredient.id}"
-                                th:text="${ingredient.name}">
+                                th:text="${ingredient.name}"
+                                th:selected="${ingredient.id} == ${mi.ingredient.id}">
                         </option>
                     </select>
                 </div>
