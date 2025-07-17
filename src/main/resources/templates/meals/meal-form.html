@@ -31,7 +31,7 @@
                         <option th:each="ingredient : ${allIngredients}"
                                 th:value="${ingredient.id}"
                                 th:text="${ingredient.name}"
-                                th:selected="${ingredient.id} == ${mi.ingredient.id}">
+                                th:selected="${mi.ingredient != null} and ${ingredient.id} == ${mi.ingredient.id}">
                         </option>
                     </select>
                 </div>
@@ -82,6 +82,7 @@
     function removeIngredientRow(button) {
         button.closest('.row').remove();
     }
+
 </script>
 </body>
 </html>

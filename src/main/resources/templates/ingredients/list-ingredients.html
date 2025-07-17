@@ -25,6 +25,10 @@
         Add Ingredient
     </a>
 
+    <div th:if="${errorMessage}" class="alert alert-danger">
+        <p th:text="${errorMessage}"></p>
+    </div>
+
     <table class="table table-bordered table-striped">
         <thead class="table-dark">
         <tr>

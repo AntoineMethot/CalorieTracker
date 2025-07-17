@@ -2,6 +2,8 @@ package CalorieTracker.controller;
 
 import CalorieTracker.entity.Ingredient;
 import CalorieTracker.service.ingredient.IngredientService;
+import CalorieTracker.service.meal.MealService;
+import CalorieTracker.service.mealingredient.MealIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,10 +18,12 @@ import java.util.List;
 public class IngredientController {
 
     private final IngredientService ingredientService;
+    private final MealIngredientService mealIngredientService;
 
     @Autowired
-    public IngredientController(IngredientService ingredientService) {
+    public IngredientController(IngredientService ingredientService, MealIngredientService mealIngredientService) {
         this.ingredientService = ingredientService;
+        this.mealIngredientService = mealIngredientService;
     }
 
     @GetMapping("/list")
@@ -50,9 +54,19 @@ public class IngredientController {
     }
 
     @GetMapping("/deleteIngredient/{id}")
-    public String deleteIngredient(@PathVariable Long id) {
-        ingredientService.deleteById(id);
-        return "redirect:/ingredients/list"; // Redirect to the list after deletion
+    public String deleteIngredient(@PathVariable Long id, Model model) {
+        Ingredient ingredient = ingredientService.findById(id);
+
+        if (mealIngredientService.findByIngredient(ingredient) != null) {
+            ingredientService.deleteById(id);
+            // Redirect to the list after deletion
+            return "redirect:/ingredients/list";
+        }
+        else {
+            // If the ingredient is used in a meal, you might want to handle this case differently
+            model.addAttribute("errorMessage", "Ingredient is used in a meal and cannot be deleted.");
+            return listIngredients(model);
+        }
     }
 
     @PostMapping("/save")
