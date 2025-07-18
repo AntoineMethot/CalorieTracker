@@ -2,7 +2,6 @@ package CalorieTracker.controller;
 
 import CalorieTracker.entity.Ingredient;
 import CalorieTracker.service.ingredient.IngredientService;
-import CalorieTracker.service.meal.MealService;
 import CalorieTracker.service.mealingredient.MealIngredientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -57,7 +56,7 @@ public class IngredientController {
     public String deleteIngredient(@PathVariable Long id, Model model) {
         Ingredient ingredient = ingredientService.findById(id);
 
-        if (mealIngredientService.findByIngredient(ingredient) == null) {
+        if (mealIngredientService.findByIngredient(ingredient).isEmpty()) {
             ingredientService.deleteById(id);
             // Redirect to the list after deletion
             return "redirect:/ingredients/list";
