@@ -57,7 +57,7 @@ public class IngredientController {
     public String deleteIngredient(@PathVariable Long id, Model model) {
         Ingredient ingredient = ingredientService.findById(id);
 
-        if (mealIngredientService.findByIngredient(ingredient) != null) {
+        if (mealIngredientService.findByIngredient(ingredient) == null) {
             ingredientService.deleteById(id);
             // Redirect to the list after deletion
             return "redirect:/ingredients/list";
