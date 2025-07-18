@@ -18,6 +18,8 @@
         <!-- Meal name -->
         <div class="mb-3">
             <input type="text" th:field="*{meal.name}" class="form-control" placeholder="Enter meal name" required>
+            <textarea type="text" th:field="*{meal.description}" class="form-control mt-2" rows="3"
+                   placeholder="Enter meal description"></textarea>
         </div>
 
         <hr>

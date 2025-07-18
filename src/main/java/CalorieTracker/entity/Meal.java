@@ -24,10 +24,21 @@ public class Meal {
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealIngredient> mealIngredients;
 
+    @Column(name = "description", length = 500)
+    private String description;
+
     private double totalCalories;
     private double totalProtein;
     private double totalCarbs;
     private double totalFat;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public double getTotalCalories() {
         return totalCalories;
