@@ -24,6 +24,43 @@ public class Meal {
     @OneToMany(mappedBy = "meal", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MealIngredient> mealIngredients;
 
+    private double totalCalories;
+    private double totalProtein;
+    private double totalCarbs;
+    private double totalFat;
+
+    public double getTotalCalories() {
+        return totalCalories;
+    }
+
+    public void setTotalCalories(double totalCalories) {
+        this.totalCalories = totalCalories;
+    }
+
+    public double getTotalProtein() {
+        return totalProtein;
+    }
+
+    public void setTotalProtein(double totalProtein) {
+        this.totalProtein = totalProtein;
+    }
+
+    public double getTotalCarbs() {
+        return totalCarbs;
+    }
+
+    public void setTotalCarbs(double totalCarbs) {
+        this.totalCarbs = totalCarbs;
+    }
+
+    public double getTotalFat() {
+        return totalFat;
+    }
+
+    public void setTotalFat(double totalFat) {
+        this.totalFat = totalFat;
+    }
+
     public List<MealIngredient> getMealIngredients() {
         return mealIngredients;
     }

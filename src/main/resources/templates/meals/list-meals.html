@@ -41,7 +41,11 @@
         </thead>
         <tbody>
         <tr th:each="meal : ${meals}">
-            <td th:text="${meal.name}" />
+            <td th:text="${meal.name}"></td>
+            <td th:text="${meal.totalCalories}"></td>
+            <td th:text="${meal.totalProtein}"></td>
+            <td th:text="${meal.totalCarbs}"></td>
+            <td th:text="${meal.totalFat}"></td>
 
             <td>
                 <a th:href="@{/meals/editMeal/{id}(id=${meal.id})}"

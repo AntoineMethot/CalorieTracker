@@ -39,11 +39,36 @@ public class MealController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
 
-        // Find list of meals for the current user
+        // Récupérer les repas de l'utilisateur
         List<Meal> meals = mealService.findByUsername(currentUsername);
-        model.addAttribute("meals", meals);
 
-        return "meals/list-meals"; // Thymeleaf template path for the meal list page
+        // Calculer les totaux pour chaque repas
+        for (Meal meal : meals) {
+            List<MealIngredient> ingredients = mealIngredientService.findByMeal(meal);
+
+            double totalCalories = 0;
+            double totalProtein = 0;
+            double totalCarbs = 0;
+            double totalFat = 0;
+
+            for (MealIngredient mealIngredient : ingredients) {
+                Ingredient ingredient = mealIngredient.getIngredient();
+                double portionQuantity = mealIngredient.getPortionQuantity();
+
+                totalCalories += ingredient.getCaloriesPerPortion() * portionQuantity;
+                totalProtein += ingredient.getProteinPerPortion() * portionQuantity;
+                totalCarbs += ingredient.getCarbsPerPortion() * portionQuantity;
+                totalFat += ingredient.getFatPerPortion() * portionQuantity;
+            }
+
+            meal.setTotalCalories(totalCalories);
+            meal.setTotalProtein(totalProtein);
+            meal.setTotalCarbs(totalCarbs);
+            meal.setTotalFat(totalFat);
+        }
+
+        model.addAttribute("meals", meals);
+        return "meals/list-meals";
     }
 
     @GetMapping("/addMeal")

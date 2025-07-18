@@ -38,13 +38,20 @@ CREATE TABLE ingredient (
 
 -- 4. Meal table
 DROP TABLE IF EXISTS meal;
+
 CREATE TABLE meal (
                       id BIGINT AUTO_INCREMENT PRIMARY KEY,
                       username VARCHAR(50) NOT NULL,
                       name VARCHAR(255) NOT NULL,
+                      description TEXT,
                       image_url VARCHAR(2048),
+                      total_calories DOUBLE DEFAULT 0,
+                      total_protein DOUBLE DEFAULT 0,
+                      total_carbs DOUBLE DEFAULT 0,
+                      total_fat DOUBLE DEFAULT 0,
                       FOREIGN KEY (username) REFERENCES users(username)
 );
+
 
 -- 5. meal_ingredient link table
 DROP TABLE IF EXISTS meal_ingredient;
